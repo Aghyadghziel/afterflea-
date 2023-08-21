@@ -6,8 +6,8 @@ export default function LandingLayout({ children }) {
   return (
     <AnimatePresence mode="wait">
       <motion.div>
-        <Header  />
-        <main className="custom-image">{children}</main>
+        <Header />
+        <main>{children}</main>
         <motion.div
           className="slide-in"
           initial={{ scaleY: 0 }}

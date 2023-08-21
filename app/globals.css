@@ -10,6 +10,7 @@
 
 html,
 body {
+  scroll-behavior: smooth;
   width: 100vw;
   height: 100vh;
 }
@@ -48,11 +49,12 @@ h1 {
 }
 
 .custom-image {
-  background-image: url("../assets/robot-handshake-human-background-futuristic-digital-age.jpg");
+  background-image: url("../assets/rm373batch5-01.jpg");
   width: 100%;
   height: 100vh;
   background-size: cover;
   object-fit: contain;
+  z-index: 0;
 }
 .custom-image::before {
   content: "";
