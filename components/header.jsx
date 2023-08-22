@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-
+import { Menu } from "lucide-react";
 const tabs = [
   { id: "home", label: "home", href: "/" },
   { id: "about", label: "about", href: "about" },
@@ -16,12 +17,12 @@ const TabLink = ({ tab, isActive, onClick }) => {
       onClick={() => onClick(tab.id)}
       className={`${
         isActive ? "" : "hover:text-white/60"
-      } relative rounded-full px-3 py-1.5 text-lg font-thin text-white outline-sky-400 transition focus-visible:outline-2`}
+      } relative  my-8  text-xl md:mt-0 rounded-full px-3 py-1.5 md:flex  sm:text-lg  font-thin text-white outline-sky-400 transition  focus-visible:outline-2`}
     >
       {isActive && (
         <motion.span
           layoutId="bubble"
-          className="absolute  inset-0 z-10 bg-white text-white mix-blend-difference"
+          className="absolute inset-0 z-10 bg-white text-white mix-blend-difference"
           style={{ borderRadius: 9999 }}
           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
         />
@@ -33,13 +34,24 @@ const TabLink = ({ tab, isActive, onClick }) => {
 
 const Header = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [activeTab, setActiveTab]);
 
   const handleAfterfleaClick = () => {
-    setActiveTab("home"); // Set the active tab to "home"
+    setActiveTab("home");
+    setIsMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <header className="w-full p-4 custom-image">
+    <header className="w-full p-4 custom-image relative">
       <div className="container mx-auto flex justify-between items-center py-4 px-8">
         <div className="z-10">
           <Link href="/" onClick={handleAfterfleaClick}>
@@ -48,7 +60,20 @@ const Header = () => {
             </h3>
           </Link>
         </div>
-        <div className="flex z-10 space-x-1">
+        <div className="md:hidden z-50">
+          <button
+            className="text-white p-2"
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+          >
+            <Menu size={28} />
+          </button>
+        </div>
+        <div
+          className={`menu flex z-50 space-x-1 md:flex ${
+            isMenuOpen ? "block" : "hidden"
+          }`}
+        >
           {tabs.map((tab) => (
             <TabLink
               key={tab.id}
