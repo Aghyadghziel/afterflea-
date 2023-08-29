@@ -1,13 +1,13 @@
 "use client";
 
-import Header from "@/components/header";
+import Header from "../../components/header";
 import { motion, AnimatePresence } from "framer-motion";
 export default function LandingLayout({ children }) {
   return (
     <AnimatePresence mode="wait">
       <motion.div>
         <Header />
-        <main>{children}</main>
+        <main className="">{children}</main>
         <motion.div
           className="slide-in"
           initial={{ scaleY: 0 }}

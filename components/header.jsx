@@ -51,23 +51,14 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full p-4 custom-image relative">
-      <div className="container mx-auto flex justify-between items-center py-4 px-8">
+    <header className="w-full p-4 absolute ">
+      <div className="container  mx-auto flex justify-between items-center py-4 px-8">
         <div className="z-10">
           <Link href="/" onClick={handleAfterfleaClick}>
             <h3 className="text-white text-lg font-normal hover:text-white/80 z-20 transition">
               Afterflea
             </h3>
           </Link>
-        </div>
-        <div className="md:hidden z-50">
-          <button
-            className="text-white p-2"
-            onClick={toggleMenu}
-            aria-label="Toggle Menu"
-          >
-            <Menu size={28} />
-          </button>
         </div>
         <div
           className={`menu flex z-50 space-x-1 md:flex ${
@@ -82,6 +73,15 @@ const Header = () => {
               onClick={setActiveTab}
             />
           ))}
+        </div>
+        <div className="md:hidden no z-50">
+          <button
+            className="text-white p-2"
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+          >
+            <Menu size={28} />
+          </button>
         </div>
       </div>
     </header>
