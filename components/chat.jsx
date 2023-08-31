@@ -36,10 +36,6 @@ const ChatComponent = () => {
   };
 
   const fakeMessage = () => {
-    if (inputMessage.trim() !== "") {
-      return;
-    }
-
     const fakeMessages = [
       "Hello there!",
       "How can I help you?",
@@ -63,7 +59,10 @@ const ChatComponent = () => {
       <div className="chat-title">
         <h1>ChatBot</h1>
         <h2>..</h2>
-        <figure className="avatar">
+        <figure
+          className={`avatar 
+          }`}
+        >
           <img
             src="https://img.freepik.com/free-vector/artificial-intelligence-ai-robot-server-room-digital-technology-banner-computer-equipment_39422-768.jpg?w=1060&t=st=1693327593~exp=1693328193~hmac=8e70f8280d384d5e42605c5c89aaa9210dd9686272f222838cb2bb73fc5a7410"
             alt="Avatar"
@@ -75,11 +74,11 @@ const ChatComponent = () => {
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`message ${
+              className={`message  ${
                 message.isPersonal ? "message-personal" : ""
               }`}
             >
-              <div className="avatar">
+              <div className={message.isPersonal ? "hidden" : "avatar"}>
                 <img
                   src="https://img.freepik.com/free-vector/artificial-intelligence-ai-robot-server-room-digital-technology-banner-computer-equipment_39422-768.jpg?w=1060&t=st=1693327593~exp=1693328193~hmac=8e70f8280d384d5e42605c5c89aaa9210dd9686272f222838cb2bb73fc5a7410"
                   alt="Avatar"
