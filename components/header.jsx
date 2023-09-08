@@ -60,6 +60,7 @@ const Header = () => {
             </h3>
           </Link>
         </div>
+
         <div
           className={`menu flex z-50  space-x-1 md:flex ${
             isMenuOpen ? "block" : "hidden"
