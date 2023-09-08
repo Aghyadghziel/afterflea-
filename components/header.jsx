@@ -17,7 +17,7 @@ const TabLink = ({ tab, isActive, onClick }) => {
       onClick={() => onClick(tab.id)}
       className={`${
         isActive ? "" : "hover:text-white/60"
-      } relative  my-8  text-xl md:mt-0 rounded-full px-3 py-1.5 md:flex  sm:text-lg  font-thin text-white outline-sky-400 transition  focus-visible:outline-2`}
+      } relative   text-xl md:mt-0 rounded-full px-3 py-1.5 md:flex  sm:text-lg  font-thin text-white outline-sky-400 transition  focus-visible:outline-2`}
     >
       {isActive && (
         <motion.span
@@ -52,16 +52,16 @@ const Header = () => {
 
   return (
     <header className="w-full p-4 absolute ">
-      <div className="container  mx-auto flex justify-between items-center py-4 px-8">
+      <div className="container  mx-auto flex justify-between p-6 items-center">
         <div className="z-10">
           <Link href="/" onClick={handleAfterfleaClick}>
-            <h3 className="text-white text-lg font-normal hover:text-white/80 z-20 transition">
+            <h3 className="text-white text-xl font-normal hover:text-white/80 z-20 transition">
               Afterflea
             </h3>
           </Link>
         </div>
         <div
-          className={`menu flex z-50 space-x-1 md:flex ${
+          className={`menu flex z-50  space-x-1 md:flex ${
             isMenuOpen ? "block" : "hidden"
           }`}
         >

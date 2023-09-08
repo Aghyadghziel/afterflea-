@@ -1,11 +1,12 @@
+"use client";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
   useEffect(() => {
-    // Simulate initial fake message
     fakeMessage();
   }, []);
 
@@ -13,26 +14,52 @@ const ChatComponent = () => {
     setInputMessage(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (inputMessage.trim() === "") {
       return;
     }
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        content: inputMessage,
-        isPersonal: true,
-        timestamp: new Date().getTime(),
-      },
-    ]);
+    const newMessage = {
+      content: inputMessage,
+      isPersonal: true,
+      timestamp: new Date().getTime(),
+    };
+
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
 
     setInputMessage("");
 
-    // Simulate a fake response after a delay
-    setTimeout(() => {
-      fakeMessage();
-    }, 1000 + Math.random() * 20 * 100);
+    try {
+      const response = await axios.post(
+        "https://admin-backend-2imn7pfmma-uc.a.run.app/b2c",
+        JSON.stringify({ query: inputMessage }), // Explicitly stringify the payload
+        {
+          headers: {
+            "Content-Type": "application/json", // Set the content type header
+          },
+        }
+      );
+
+      const responseData = response.data;
+      console.log("Received response:", responseData);
+
+      const responseMessage = {
+        content: responseData,
+        isPersonal: false,
+        timestamp: new Date().getTime(),
+      };
+
+      setMessages((prevMessages) => [...prevMessages, responseMessage]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
   };
 
   const fakeMessage = () => {
@@ -57,12 +84,9 @@ const ChatComponent = () => {
   return (
     <div className="chat">
       <div className="chat-title">
-        <h1>ChatBot</h1>
-        <h2>..</h2>
-        <figure
-          className={`avatar 
-          }`}
-        >
+        <h1 className=" font-bold">ChatBot</h1>
+        <h2>Karlos</h2>
+        <figure className={`avatar`}>
           <img
             src="https://img.freepik.com/free-vector/artificial-intelligence-ai-robot-server-room-digital-technology-banner-computer-equipment_39422-768.jpg?w=1060&t=st=1693327593~exp=1693328193~hmac=8e70f8280d384d5e42605c5c89aaa9210dd9686272f222838cb2bb73fc5a7410"
             alt="Avatar"
@@ -100,6 +124,7 @@ const ChatComponent = () => {
           placeholder="Type message..."
           value={inputMessage}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
         />
         <button type="submit" className="message-submit" onClick={handleSubmit}>
           Send
